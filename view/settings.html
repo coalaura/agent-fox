@@ -1,0 +1,117 @@
+<style>
+    html,
+    body {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        background: #191919;
+        color: #FCFBFC;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    #container {
+        padding: 10px 15px;
+        max-width: 280px;
+    }
+
+    h1 {
+        font-weight: 500;
+        font-size: 20px;
+        margin: 0;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #active {
+        color: #666;
+        font-size: 16px;
+    }
+
+    #browser {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: space-between;
+    }
+
+    .browser {
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        font-size: 14px;
+        text-align: center;
+        cursor: pointer;
+        background: #232323;
+        border: 2px solid #2F2F2F;
+        border-radius: 10px;
+        width: 65px;
+        height: 65px;
+    }
+
+    .browser:hover {
+        background: #313131;
+        border-color: #595959;
+    }
+
+    .browser.selected {
+        background: #293829;
+        border-color: #4c674c;
+    }
+
+    .browser img {
+        height: 100%;
+    }
+
+    #intercepted {
+        font-size: 14px;
+        margin-top: 15px;
+        color: #666;
+    }
+</style>
+
+<div id="container">
+    <h1>
+        <span>Agent<b>Fox</b></span>
+        <span id="active">off</span>
+    </h1>
+
+    <div id="browser">
+        <div data-browser="chrome" class="browser">
+            <img src="img/chrome.png" />
+            <span>Chrome</span>
+        </div>
+
+        <div data-browser="firefox" class="browser">
+            <img src="img/firefox.png" />
+            <span>Firefox</span>
+        </div>
+
+        <div data-browser="safari" class="browser">
+            <img src="img/safari.png" />
+            <span>Safari</span>
+        </div>
+
+        <div data-browser="opera" class="browser">
+            <img src="img/opera.png" />
+            <span>Opera</span>
+        </div>
+
+        <div data-browser="edge" class="browser">
+            <img src="img/edge.png" />
+            <span>Edge</span>
+        </div>
+
+        <div data-browser="ie" class="browser">
+            <img src="img/ie.png" />
+            <span>IE</span>
+        </div>
+    </div>
+
+    <div id="intercepted"></div>
+</div>
+
+<script src="settings.js"></script>
