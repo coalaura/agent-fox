@@ -4,7 +4,7 @@
     "scripts": {
         "build": "esbuild src/agent.js --bundle --minify --outfile=dist/agent.js",
         "watch": "npm run build -- --watch",
-        "package": "web-ext build"
+        "package": "web-ext build --overwrite-dest --ignore-files src package.json package-lock.json"
     },
     "devDependencies": {
         "esbuild": "0.19.7"
