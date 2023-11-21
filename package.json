@@ -1,0 +1,12 @@
+{
+    "name": "agent-fox",
+    "type": "module",
+    "scripts": {
+        "build": "esbuild src/agent.js --bundle --minify --outfile=dist/agent.js",
+        "watch": "npm run build -- --watch",
+        "package": "web-ext build"
+    },
+    "devDependencies": {
+        "esbuild": "0.19.7"
+    }
+}

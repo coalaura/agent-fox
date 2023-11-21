@@ -1,18 +1,4 @@
-// User-Agent Configuration
-const OperatingSystems = [
-    "Windows NT 10.0; Win64; x64",
-    "Macintosh; Intel Mac OS X 10_15_7",
-    "X11; Linux x86_64"
-];
-
-const BrowserVersions = {
-    "edge": "119.0.0.0",
-    "ie": "11.0",
-    "chrome": "119.0.0.0",
-    "firefox": "119.0",
-    "safari": "15.0",
-    "opera": "104.0.0.0"
-};
+import { OperatingSystems, BrowserVersions } from "./config.js";
 
 // Send messages to view/settings.js
 let ViewChannelPort = null,
@@ -48,16 +34,19 @@ browser.webRequest.onBeforeSendHeaders.addListener(
 );
 
 // Listen for settings changes
-let FoxBrowser;
+let FoxBrowser,
+    FoxSystem;
 
-browser.storage.local.get("foxBrowser").then(data => {
+browser.storage.local.get(null).then(data => {
     FoxBrowser = data?.foxBrowser;
+    FoxSystem = data?.foxSystem || "windows";
 
     updateAgent();
 });
 
 browser.storage.local.onChanged.addListener(changes => {
-    FoxBrowser = changes.foxBrowser.newValue;
+    if (changes.foxBrowser) FoxBrowser = changes.foxBrowser.newValue;
+    if (changes.foxSystem) FoxSystem = changes.foxSystem.newValue;
 
     updateAgent();
 });
@@ -103,11 +92,19 @@ function generateNewUserAgent(browserName) {
 }
 
 function getRandomOSDetails() {
-    return OperatingSystems[Math.floor(Math.random() * OperatingSystems.length)];
+    const versions = OperatingSystems[FoxSystem];
+
+    return versions[Math.floor(Math.random() * versions.length)];
+}
+
+function getRandomBrowserVersion(browserName) {
+    const versions = BrowserVersions[browserName];
+
+    return versions[Math.floor(Math.random() * versions.length)];
 }
 
 function getBrowserDetails(browserName) {
-    const version = BrowserVersions[browserName],
+    const version = getRandomBrowserVersion(browserName),
         name = browserName === "ie" ? "MSIE" : browserName.charAt(0).toUpperCase() + browserName.slice(1);
 
     let details = `${name}/${version}`;

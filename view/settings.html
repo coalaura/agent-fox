@@ -18,7 +18,6 @@
         font-weight: 500;
         font-size: 20px;
         margin: 0;
-        margin-bottom: 15px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -29,13 +28,16 @@
         font-size: 16px;
     }
 
+    #system,
     #browser {
         display: flex;
         flex-wrap: wrap;
         gap: 15px;
         justify-content: space-between;
+        margin-top: 15px;
     }
 
+    .system,
     .browser {
         padding: 5px;
         display: flex;
@@ -52,9 +54,15 @@
         height: 65px;
     }
 
+    .system:hover,
     .browser:hover {
         background: #313131;
         border-color: #595959;
+    }
+
+    .system.selected {
+        background: #293438;
+        border-color: #4c6067;
     }
 
     .browser.selected {
@@ -62,8 +70,9 @@
         border-color: #4c674c;
     }
 
-    .browser img {
+    img {
         height: 100%;
+        filter: drop-shadow(0px 0px 2px #595959);
     }
 
     #intercepted {
@@ -80,34 +89,51 @@
     </h1>
 
     <div id="browser">
-        <div data-browser="chrome" class="browser">
+        <div data-value="chrome" class="browser">
             <img src="img/chrome.png" />
             <span>Chrome</span>
         </div>
 
-        <div data-browser="firefox" class="browser">
+        <div data-value="firefox" class="browser">
             <img src="img/firefox.png" />
             <span>Firefox</span>
         </div>
 
-        <div data-browser="safari" class="browser">
+        <div data-value="safari" class="browser">
             <img src="img/safari.png" />
             <span>Safari</span>
         </div>
 
-        <div data-browser="opera" class="browser">
+        <div data-value="opera" class="browser">
             <img src="img/opera.png" />
             <span>Opera</span>
         </div>
 
-        <div data-browser="edge" class="browser">
+        <div data-value="edge" class="browser">
             <img src="img/edge.png" />
             <span>Edge</span>
         </div>
 
-        <div data-browser="ie" class="browser">
+        <div data-value="ie" class="browser">
             <img src="img/ie.png" />
             <span>IE</span>
+        </div>
+    </div>
+
+    <div id="system">
+        <div data-value="windows" class="system">
+            <img src="img/windows.png" />
+            <span>Windows</span>
+        </div>
+
+        <div data-value="mac" class="system">
+            <img src="img/apple.png" />
+            <span>Mac / OSX</span>
+        </div>
+
+        <div data-value="linux" class="system">
+            <img src="img/linux.png" />
+            <span>Linux</span>
         </div>
     </div>
 

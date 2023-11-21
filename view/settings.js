@@ -1,44 +1,56 @@
 (function () {
     const browsers = document.querySelectorAll(".browser"),
+        systems = document.querySelectorAll(".system"),
         active = document.getElementById("active"),
         intercepted = document.getElementById("intercepted");
 
-    browsers.forEach(item => {
-        item.addEventListener("click", () => {
-            if (item.classList.contains("selected")) {
-                item.classList.remove("selected");
+    selectable(browsers, setConfig, true);
+    selectable(systems, setConfig, false);
 
-                setBrowser(false);
+    function selectable(elements, callback, canUnselect = true) {
+        elements.forEach(item => {
+            item.addEventListener("click", () => {
+                if (item.classList.contains("selected") && canUnselect) {
+                    item.classList.remove("selected");
+                } else {
+                    elements.forEach(el => {
+                        el.classList.remove("selected");
+                    });
 
-                return;
-            }
+                    item.classList.add("selected");
+                }
 
-            browsers.forEach((item) => {
-                item.classList.remove("selected");
+                callback();
             });
-
-            item.classList.add("selected");
-
-            setBrowser(item.dataset.browser);
-        });
-    });
-
-    function setBrowser(value) {
-        active.innerText = value || "off";
-
-        browser.storage.local.set({
-            foxBrowser: value
         });
     }
 
-    browser.storage.local.get("foxBrowser").then(data => {
-        const value = data?.foxBrowser;
+    function setConfig() {
+        const selectedBrowser = document.querySelector(".browser.selected"),
+            selectedSystem = document.querySelector(".system.selected");
 
-        active.innerText = value || "off";
+        const foxBrowser = selectedBrowser?.dataset.value || false,
+            foxSystem = selectedSystem?.dataset.value || "windows";
 
-        if (!value) return;
+        active.innerText = foxBrowser ? `${foxSystem}/${foxBrowser}` : "off";
 
-        document.querySelector(`.browser[data-browser="${value}"]`).classList.add("selected");
+        browser.storage.local.set({
+            foxBrowser: foxBrowser,
+            foxSystem: foxSystem
+        });
+    }
+
+    browser.storage.local.get(null).then(data => {
+        const foxBrowser = data?.foxBrowser,
+            foxSystem = data?.foxSystem || "windows";
+
+        active.innerText = foxBrowser ? `${foxSystem}/${foxBrowser}` : "off";
+
+        if (foxBrowser) {
+            document.querySelector(`.browser[data-value="${foxBrowser}"]`).classList.add("selected");
+        }
+
+        document.querySelector(`.system[data-value="${foxSystem}"]`).classList.add("selected");
     });
 
     const port = chrome.runtime.connect({
