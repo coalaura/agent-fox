@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "AgentFox",
-    "version": "1.0",
+    "version": "1.1",
     "description": "Randomize your user agent in all outgoing requests.",
     "icons": {
         "48": "icons/fox_48.png"
@@ -9,7 +9,7 @@
     "permissions": [
         "storage",
         "webRequest",
-        "webRequestBlocking",
+        "declarativeNetRequest",
         "<all_urls>"
     ],
     "browser_action": {
